@@ -14,7 +14,7 @@ Resources:
   GISInstance:
     Type: AWS::EC2::Instance
     Properties:
-      ImageId: ami-08d5d68b18912294a # ImageID valid only in ap-south-1 region
+      ImageId:  ami-08d5d68b18912294a # ImageID valid only in ap-south-1 region
       InstanceType: g4dn.2xlarge
       KeyName: GIS
       SecurityGroupIds: 
