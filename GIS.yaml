@@ -1,0 +1,29 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Launch EC2 Instance with AGsoft installed
+
+Parameters :
+  
+  
+  GISSG:
+    Type: AWS::EC2::SecurityGroup::Id
+  GISSubnet:
+    Type: AWS::EC2::Subnet::Id
+
+
+Resources:
+  GISInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-08d5d68b18912294a # ImageID valid only in ap-south-1 region
+      InstanceType: g4dn.2xlarge
+      KeyName: GIS
+      SecurityGroupIds: 
+        - !Ref GISSG   
+      SubnetId:
+           Ref: GISSubnet    
+
+  
+  
+     
+
+        
