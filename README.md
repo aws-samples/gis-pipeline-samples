@@ -1,11 +1,8 @@
-## My Project
+## GIS Pipeline Automation with AWS Cloudformation
 
-TODO: Fill this README out!
+This repository contains the sample cloudformation template for deploying the AGSoft software on Amazon EC2 instance of type g4dn.2xlarge. This cloudformation template will install EC2 instance of type g4dn.2xlarge on windows platform with AGSoft software already installed on it. 
 
-Be sure to:
-
-* Change the title in this README
-* Edit your repository description on GitHub
+NOTE- These templates are only provided as a reference and are not officially part of AWS documentation. Users can download the samples and make changes as per the requirement.
 
 ## Security
 
