@@ -1,29 +1,29 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: Launch EC2 Instance with AGsoft installed
 
-Parameters :
-  
-  
-  GISSG:
-    Type: AWS::EC2::SecurityGroup::Id
-  GISSubnet:
+Parameters:
+  VpcId:
+    Type: AWS::EC2::VPC::Id
+    Description: Select VPC
+  SubnetId:
     Type: AWS::EC2::Subnet::Id
-
+    Description: Select Subnet
+  SecurityGroupId:
+    Type: AWS::EC2::SecurityGroup::Id
+    Description: Select Security Group
 
 Resources:
-  GISInstance:
+  EC2Instance:
     Type: AWS::EC2::Instance
     Properties:
-      ImageId:  ami-08d5d68b18912294a # ImageID valid only in ap-south-1 region
+      ImageId: ami-08d5d68b18912294a # ImageID valid only in ap-south-1 region
       InstanceType: g4dn.2xlarge
       KeyName: GIS
-      SecurityGroupIds: 
-        - !Ref GISSG   
-      SubnetId:
-           Ref: GISSubnet    
-
-  
-  
+      NetworkInterfaces:
+        - AssociatePublicIpAddress: true
+          DeviceIndex: 0
+          GroupSet:
+            - Ref: SecurityGroupId
+          SubnetId:
+            Ref: SubnetId
      
-
-        
