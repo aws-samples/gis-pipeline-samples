@@ -1,29 +1,55 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: Launch EC2 Instance with AGsoft installed
-
+Metadata: 
+  AWS::CloudFormation::Interface: 
+    ParameterGroups: 
+      - 
+        Label: 
+          default: "Network Configuration"
+        Parameters: 
+          - VPC
+          - Publicsubnet
+          - SecurityGroupId
+      - 
+        Label: 
+          default: "Amazon EC2 Configuration"
+        Parameters: 
+          - KeyName
+    ParameterLabels: 
+      VPC: 
+        default: "Which VPC should this be deployed to?"
 Parameters:
-  VpcId:
+  
+  VPC:
+    Description: Select VPC from the available VPCs in your account.
     Type: AWS::EC2::VPC::Id
-    Description: Select VPC
-  SubnetId:
+  Publicsubnet:
+    Description: Select public subnet
     Type: AWS::EC2::Subnet::Id
-    Description: Select Subnet
   SecurityGroupId:
+    Description: Select Security Group created within selected VPC
     Type: AWS::EC2::SecurityGroup::Id
-    Description: Select Security Group
-
+  KeyName:
+    Description: Name of an existing EC2 KeyPair in ap-south-1 region to enable access to the instance
+    Type: AWS::EC2::KeyPair::KeyName
+    ConstraintDescription: must be the name of an existing EC2 KeyPair
 Resources:
   EC2Instance:
     Type: AWS::EC2::Instance
     Properties:
       ImageId: ami-03830df63819ad114 # ImageID valid only in ap-south-1 region
       InstanceType: g4dn.2xlarge
-      KeyName: GIS
+      KeyName: !Ref KeyName
+      
       NetworkInterfaces:
         - AssociatePublicIpAddress: true
           DeviceIndex: 0
           GroupSet:
             - Ref: SecurityGroupId
           SubnetId:
-            Ref: SubnetId
-     
+            Ref: Publicsubnet
+Outputs:
+ 
+  InstanceID:
+    Description: The Instance ID with AGSoft Metashape Professional pre-installed
+    Value: !Ref EC2Instance     
